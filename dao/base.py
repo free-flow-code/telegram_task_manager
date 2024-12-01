@@ -1,13 +1,14 @@
 from typing import Optional
 from sqlalchemy import select, insert
 from database import SessionLocal
+from models.user import User
 
 
 class BaseDAO:
     model = None
 
     @classmethod
-    def find_one_or_none(cls, **filters) -> Optional[int]:
+    def find_one_or_none(cls, **filters) -> Optional[User]:
         """
        Ищет одну запись в таблице, соответствующую фильтрам. Возвращает None, если запись не найдена.
        """

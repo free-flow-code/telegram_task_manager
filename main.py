@@ -4,7 +4,8 @@ from aiogram.client.default import DefaultBotProperties
 
 from config import settings
 from logger_init import logger
-from handlers.register_user import router as user_router
+from handlers.register_user import router as register_user_router
+from handlers.add_task import router as add_task_router
 
 
 async def main():
@@ -13,7 +14,8 @@ async def main():
     bot = Bot(settings.BOT_TOKEN, default=DefaultBotProperties(parse_mode='HTML'))
     dp = Dispatcher()
 
-    dp.include_router(user_router)
+    dp.include_router(register_user_router)
+    dp.include_router(add_task_router)
 
     dp.startup.register(set_main_menu)
     await bot.delete_webhook(drop_pending_updates=True)

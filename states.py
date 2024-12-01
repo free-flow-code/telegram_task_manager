@@ -7,4 +7,5 @@ class RegistrationStates(StatesGroup):
 
 
 class TaskStates(StatesGroup):
+    enter_task_name = State()
     enter_description = State()
