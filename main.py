@@ -8,6 +8,7 @@ from handlers.register_user import router as register_user_router
 from handlers.add_task import router as add_task_router
 from handlers.view_task import router as view_task_router
 from handlers.manage_task import router as manage_task_router
+from handlers.delete_task import router as delete_task_router
 
 
 async def main():
@@ -20,6 +21,7 @@ async def main():
     dp.include_router(add_task_router)
     dp.include_router(view_task_router)
     dp.include_router(manage_task_router)
+    dp.include_router(delete_task_router)
 
     dp.startup.register(set_main_menu)
     await bot.delete_webhook(drop_pending_updates=True)
@@ -34,6 +36,7 @@ async def set_main_menu(bot: Bot):
             types.BotCommand(command="/tasks", description="Просмотреть задачи"),
             types.BotCommand(command="/manage", description="Управление задачами"),
             types.BotCommand(command="/search", description="Поиск задач"),
+            types.BotCommand(command="/delete", description="Удалить выполненные задачи"),
         ]
     )
 

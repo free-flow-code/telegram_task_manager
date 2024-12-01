@@ -1,4 +1,4 @@
-from sqlalchemy import select, insert, update
+from sqlalchemy import select, insert, update, delete
 from database import SessionLocal
 
 
@@ -35,5 +35,12 @@ class BaseDAO:
     def edit(cls, model_id: int, **data) -> None:
         with SessionLocal() as session:
             query = update(cls.model).where(cls.model.id == model_id).values(**data)
+            session.execute(query)
+            session.commit()
+
+    @classmethod
+    def delete(cls, model_id: int) -> None:
+        with SessionLocal() as session:
+            query = delete(cls.model).where(cls.model.id == model_id)
             session.execute(query)
             session.commit()

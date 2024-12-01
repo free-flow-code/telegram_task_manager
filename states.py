@@ -14,3 +14,7 @@ class AddTaskStates(StatesGroup):
 class ManageTaskStates(StatesGroup):
     enter_task_number = State()
     choose_status = State()
+
+
+class DeleteTaskState(StatesGroup):
+    delete_confirmation = State()
