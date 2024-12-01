@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     )
     BOT_TOKEN: str
     DB_FILENAME: str = "mydb.sqlite3"
+    SERVER_TZ: str = "Europe/Moscow"
 
 
 settings = Settings()
