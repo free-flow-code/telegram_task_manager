@@ -19,6 +19,7 @@ async def change_task_status(message: Message, state: FSMContext):
         await redirect_to_registration(message, state)
         return
 
+    await state.update_data(user_id=user.id)
     await message.answer("Чтобы изменить статус задачи, введите ее номер:")
     await state.set_state(ManageTaskStates.enter_task_number)
 
@@ -31,7 +32,8 @@ async def enter_task_number(message: Message, state: FSMContext):
         await message.answer("Номер задачи должен быть числом! Попробуйте еще раз:")
         return
 
-    task = TaskDAO.find_one_or_none(id=task_number)
+    data = await state.get_data()
+    task = TaskDAO.filter_by(id=task_number, user_id=data["user_id"])
 
     if not task:
         await message.answer("Такой задачи не существует. Попробуйте еще раз:")
