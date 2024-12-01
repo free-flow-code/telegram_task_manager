@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy.orm import relationship
 from datetime import datetime
 from database import Base
 import pytz
@@ -18,6 +19,8 @@ class User(Base):
         nullable=False,
         default=datetime.now(tz=pytz.timezone(settings.SERVER_TZ)).timestamp()
     )
+
+    tasks = relationship("Task", back_populates="user", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<User(id={self.id}, name={self.name}, telegram_id={self.telegram_id})>"
