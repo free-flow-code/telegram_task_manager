@@ -2,8 +2,10 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from states import TaskStates, RegistrationStates
+
+from states import TaskStates
 from models.models_dao import UserDAO, TaskDAO
+from utils import redirect_to_registration
 
 router = Router()
 
@@ -13,11 +15,7 @@ async def add_task_start(message: Message, state: FSMContext):
     # Если пользователь не зарегистрирован, предлагаем зарегистрироваться
     user = UserDAO.find_one_or_none(telegram_id=message.from_user.id)
     if not user:
-        await message.answer(
-            "Вы не зарегистрированы! Давайте исправим это."
-        )
-        await message.answer("Введите ваше имя для регистрации:")
-        await state.set_state(RegistrationStates.enter_name)
+        await redirect_to_registration(message, state)
         return
 
     await state.update_data(user_id=user.id)

@@ -1,5 +1,9 @@
-from typing import Optional
 import phonenumbers
+from typing import Optional
+from aiogram.types import Message
+from aiogram.fsm.context import FSMContext
+
+from states import RegistrationStates
 
 
 def validate_phonenumber(phonenumber: str) -> Optional[int]:
@@ -16,3 +20,13 @@ def validate_phonenumber(phonenumber: str) -> Optional[int]:
         return int(''.join(filter(str.isdigit, phonenumber)))
     except phonenumbers.phonenumberutil.NumberParseException:
         return
+
+
+async def redirect_to_registration(message: Message, state: FSMContext) -> None:
+    """Перенаправляет пользователя на регистрацию."""
+    await message.answer(
+        "Вы не зарегистрированы! Давайте исправим это."
+    )
+    await message.answer("Введите ваше имя для регистрации:")
+    await state.set_state(RegistrationStates.enter_name)
+    return
