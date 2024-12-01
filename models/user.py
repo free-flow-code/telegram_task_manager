@@ -1,10 +1,11 @@
-from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from database import Base
 import pytz
 
 from config import settings
+from models.task import Task
 
 
 class User(Base):
@@ -15,7 +16,7 @@ class User(Base):
     name = Column(String, nullable=False)
     phone = Column(String, nullable=False)
     registration_date = Column(
-        Date,
+        Float,
         nullable=False,
         default=datetime.now(tz=pytz.timezone(settings.SERVER_TZ)).timestamp()
     )

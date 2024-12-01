@@ -3,9 +3,9 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
 
-# Импортируем Base и движок
-from database import Base
-from database import DATABASE_URL
+from database import Base, DATABASE_URL
+from models.user import User
+from models.task import Task
 
 # Настраиваем конфигурацию
 config = context.config
