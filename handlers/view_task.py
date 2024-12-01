@@ -20,7 +20,6 @@ async def view_task_list(message: Message, state: FSMContext):
     tasks = TaskDAO.filter_by(user_id=user.id)
     reply_message = ""
     for task in tasks:
-        print(task, type(task))
         reply_message += textwrap.dedent(f"""\
         *Задача №{task.id}*
         *Название:* {task.title.strip()}

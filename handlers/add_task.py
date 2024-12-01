@@ -3,7 +3,7 @@ from aiogram.types import Message
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
-from states import TaskStates
+from states import AddTaskStates
 from models.models_dao import UserDAO, TaskDAO
 from utils import redirect_to_registration
 
@@ -20,10 +20,10 @@ async def add_task_start(message: Message, state: FSMContext):
 
     await state.update_data(user_id=user.id)
     await message.answer("Введите название задачи:")
-    await state.set_state(TaskStates.enter_task_name)
+    await state.set_state(AddTaskStates.enter_task_name)
 
 
-@router.message(TaskStates.enter_task_name)
+@router.message(AddTaskStates.enter_task_name)
 async def enter_task_name(message: Message, state: FSMContext):
     if TaskDAO.find_one_or_none(title=message.text):
         await message.answer("Задача с таким названием уже существует. Выберите другое:")
@@ -31,10 +31,10 @@ async def enter_task_name(message: Message, state: FSMContext):
 
     await state.update_data(name=message.text)
     await message.answer("Добавьте описание задачи:")
-    await state.set_state(TaskStates.enter_description)
+    await state.set_state(AddTaskStates.enter_description)
 
 
-@router.message(TaskStates.enter_description)
+@router.message(AddTaskStates.enter_description)
 async def save_task(message: Message, state: FSMContext):
     data = await state.get_data()
 

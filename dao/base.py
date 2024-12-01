@@ -1,4 +1,4 @@
-from sqlalchemy import select, insert
+from sqlalchemy import select, insert, update
 from database import SessionLocal
 
 
@@ -28,5 +28,12 @@ class BaseDAO:
         """Добавляет новую запись в таблицу."""
         with SessionLocal() as session:
             query = insert(cls.model).values(**data)
+            session.execute(query)
+            session.commit()
+
+    @classmethod
+    def edit(cls, model_id: int, **data) -> None:
+        with SessionLocal() as session:
+            query = update(cls.model).where(cls.model.id == model_id).values(**data)
             session.execute(query)
             session.commit()
