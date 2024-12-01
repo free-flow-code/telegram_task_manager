@@ -2,15 +2,14 @@ import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram.client.default import DefaultBotProperties
 
-from config import load_config
+from config import settings
 from logger_init import logger
 
 
 async def main():
     logger.info("Starting Bot")
-    config = load_config()
 
-    bot = Bot(config.tg_bot.token, default=DefaultBotProperties(parse_mode='HTML'))
+    bot = Bot(settings.BOT_TOKEN, default=DefaultBotProperties(parse_mode='HTML'))
     dp = Dispatcher()
 
     dp.startup.register(set_main_menu)

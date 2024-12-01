@@ -1,20 +1,15 @@
-from dataclasses import dataclass
-from environs import Env
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-@dataclass
-class TgBot:
-    token: str  # Токен для доступа к телеграм-боту
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        env_ignore_empty=True,
+        extra="ignore"
+    )
+    BOT_TOKEN: str
+    DB_FILENAME: str = "mydb.sqlite3"
 
 
-@dataclass
-class Config:
-    tg_bot: TgBot
-
-
-def load_config() -> Config:
-
-    env: Env = Env()
-    env.read_env()
-
-    return Config(tg_bot=TgBot(token=env('BOT_TOKEN')))
+settings = Settings()
