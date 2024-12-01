@@ -5,8 +5,8 @@ import enum
 
 
 class TaskStatus(enum.Enum):
-    done = "Готова"
-    not_done = "Не готова"
+    done = "Выполнена"
+    not_done = "Не выполнена"
 
 
 class Task(Base):
