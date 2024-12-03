@@ -18,3 +18,7 @@ class ManageTaskStates(StatesGroup):
 
 class DeleteTaskState(StatesGroup):
     delete_confirmation = State()
+
+
+class SearchTaskState(StatesGroup):
+    enter_keyword = State()

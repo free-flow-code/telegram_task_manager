@@ -25,7 +25,7 @@ async def view_task_list(message: Message, state: FSMContext):
         *Название:* {task.title.strip()}
         *Описание:*
         {task.description.strip()}
-        *Статус:* {'Выполнена' if task.is_done else 'Не выполнена'}\n
+        *Статус:* {'Выполнена' if task.is_done == "done" else 'Не выполнена'}\n
         """)
     await message.answer(
         reply_message if reply_message else "У вас пока нет задач!",
