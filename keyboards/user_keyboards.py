@@ -2,6 +2,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 
 def change_task_status_keyboard():
+    """Формирует кнопки для смены статуса задачи."""
     keyboard = InlineKeyboardBuilder()
     keyboard.button(text="Выполнена", callback_data="done")
     keyboard.button(text="Не выполнена", callback_data="not_done")
@@ -10,6 +11,7 @@ def change_task_status_keyboard():
 
 
 def delete_task_keyboard():
+    """Формирует кнопки для подтверждения удаления задачи."""
     keyboard = InlineKeyboardBuilder()
     keyboard.button(text="Да", callback_data="yes")
     keyboard.button(text="Нет", callback_data="no")
