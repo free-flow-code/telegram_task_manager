@@ -36,3 +36,9 @@ alembic upgrade head
 ```shell
 python main.py
 ```
+
+## Запуск в Docker
+
+```shell
+docker-compose up --build -d
+```

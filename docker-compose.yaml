@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  task_manager_bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      DB_FILENAME: ${DB_FILENAME:-mydb.sqlite3}
+      SERVER_TZ: ${SERVER_TZ:-Europe/Moscow}
+    volumes:
+      - .:/app
+    restart: unless-stopped
